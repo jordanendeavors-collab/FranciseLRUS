@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>MLS Lead Command Center | Universal Franchise Intelligence</title>
+<meta name="description" content="Nationwide franchise intelligence platform — track permits, land acquisitions, ground breaks, and wiring opportunities across all franchise industries.">
+<meta name="author" content="AAA Smart Security">
+<meta name="theme-color" content="#0a0e17">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MLS Command">
+<!-- OG / Social -->
+<meta property="og:title" content="MLS Lead Command Center">
+<meta property="og:description" content="Universal Franchise Intelligence — Every franchise that builds is a security customer.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' fill='%230a0e17'><rect width='1200' height='630'/><text x='600' y='300' text-anchor='middle' fill='%23DC143C' font-size='64' font-family='Arial'>MLS COMMAND CENTER</text><text x='600' y='380' text-anchor='middle' fill='%2394a3b8' font-size='28' font-family='Arial'>Universal Franchise Intelligence</text></svg>">
+<!-- Favicon inline SVG -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23DC143C'/><text x='16' y='23' text-anchor='middle' fill='white' font-size='18' font-weight='bold' font-family='Arial'>M</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='36' fill='%23DC143C'/><text x='90' y='125' text-anchor='middle' fill='white' font-size='100' font-weight='bold' font-family='Arial'>M</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-card: #1a2235;
+  --bg-card-hover: #1f2a40;
+  --bg-elevated: #243049;
+  --ferrari-red: #DC143C;
+  --red-glow: rgba(220,20,60,0.3);
+  --cyan: #06b6d4;
+  --cyan-glow: rgba(6,182,212,0.25);
+  --green: #10b981;
+  --green-glow: rgba(16,185,129,0.25);
+  --amber: #f59e0b;
+  --amber-glow: rgba(245,158,11,0.25);
+  --purple: #8b5cf6;
+  --purple-glow: rgba(139,92,246,0.25);
+  --orange: #f97316;
+  --blue: #3b82f6;
+  --teal: #14b8a6;
+  --pink: #ec4899;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: #1e293b;
+  --border-active: #334155;
+  --glass: rgba(26,34,53,0.85);
+  --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content:''; position:fixed; top:0; left:0; width:100%; height:100%;
+  background: linear-gradient(rgba(6,182,212,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(6,182,212,0.03) 1px, transparent 1px);
+  background-size: 40px 40px; pointer-events:none; z-index:0;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position:fixed; left:0; top:0; bottom:0; width:270px;
+  background:var(--bg-secondary); border-right:1px solid var(--border);
+  z-index:100; display:flex; flex-direction:column;
+}
+.sidebar-brand { padding:20px; border-bottom:1px solid var(--border); text-align:center; }
+.sidebar-brand h1 {
+  font-family:'Rajdhani',sans-serif; font-size:17px; font-weight:700;
+  color:var(--ferrari-red); letter-spacing:2px; text-transform:uppercase; line-height:1.2;
+}
+.sidebar-brand .sub { font-size:9px; color:var(--text-muted); letter-spacing:3px; text-transform:uppercase; margin-top:4px; }
+.sidebar-nav { flex:1; padding:8px 0; overflow-y:auto; }
+.nav-section { padding:10px 20px 4px; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); font-weight:600; }
+.nav-item {
+  display:flex; align-items:center; gap:10px; padding:9px 20px; cursor:pointer;
+  transition:var(--transition); border-left:3px solid transparent; font-size:12.5px; color:var(--text-secondary);
+}
+.nav-item:hover { background:var(--bg-card); color:var(--text-primary); }
+.nav-item.active { background:rgba(220,20,60,0.08); border-left-color:var(--ferrari-red); color:var(--ferrari-red); font-weight:600; }
+.nav-item .icon { font-size:15px; width:22px; text-align:center; }
+.nav-item .badge { margin-left:auto; background:var(--ferrari-red); color:white; font-size:10px; padding:2px 7px; border-radius:10px; font-weight:600; }
+
+/* ─── MAIN ─── */
+.main { margin-left:270px; position:relative; z-index:1; }
+.topbar {
+  position:sticky; top:0; z-index:50; background:var(--glass);
+  backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+  padding:12px 28px; display:flex; align-items:center; justify-content:space-between;
+}
+.topbar-title { font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:600; }
+.topbar-right { display:flex; align-items:center; gap:10px; }
+.search-box {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:8px;
+  padding:8px 14px; color:var(--text-primary); font-size:13px; width:300px; outline:none;
+}
+.search-box:focus { border-color:var(--cyan); box-shadow:0 0 0 3px var(--cyan-glow); }
+.topbar-btn {
+  background:var(--bg-card); border:1px solid var(--border); color:var(--text-secondary);
+  padding:8px 12px; border-radius:8px; cursor:pointer; font-size:13px;
+}
+.topbar-btn:hover { background:var(--bg-elevated); color:var(--text-primary); }
+.content { padding:22px 28px; }
+
+/* ─── KPI ─── */
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(185px,1fr)); gap:14px; margin-bottom:24px; }
+.kpi-card {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:12px;
+  padding:16px; position:relative; overflow:hidden; cursor:pointer; transition:var(--transition);
+}
+.kpi-card:hover { border-color:var(--border-active); transform:translateY(-2px); }
+.kpi-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.kpi-card.red::before { background:var(--ferrari-red); }
+.kpi-card.cyan::before { background:var(--cyan); }
+.kpi-card.green::before { background:var(--green); }
+.kpi-card.amber::before { background:var(--amber); }
+.kpi-card.purple::before { background:var(--purple); }
+.kpi-card.orange::before { background:var(--orange); }
+.kpi-card.blue::before { background:var(--blue); }
+.kpi-card.teal::before { background:var(--teal); }
+.kpi-card.pink::before { background:var(--pink); }
+.kpi-label { font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px; }
+.kpi-value { font-family:'Rajdhani',sans-serif; font-size:30px; font-weight:700; line-height:1; margin-bottom:4px; }
+.kpi-card.red .kpi-value { color:var(--ferrari-red); }
+.kpi-card.cyan .kpi-value { color:var(--cyan); }
+.kpi-card.green .kpi-value { color:var(--green); }
+.kpi-card.amber .kpi-value { color:var(--amber); }
+.kpi-card.purple .kpi-value { color:var(--purple); }
+.kpi-card.orange .kpi-value { color:var(--orange); }
+.kpi-card.blue .kpi-value { color:var(--blue); }
+.kpi-card.teal .kpi-value { color:var(--teal); }
+.kpi-card.pink .kpi-value { color:var(--pink); }
+.kpi-change { font-size:11px; font-weight:500; }
+.kpi-change.up { color:var(--green); }
+.kpi-change.down { color:var(--ferrari-red); }
+
+/* ─── CARDS ─── */
+.section-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:24px; }
+.card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.card:hover { border-color:var(--border-active); }
+.card.full-width { grid-column:1/-1; }
+.card-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); }
+.card-header h3 { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:600; letter-spacing:0.5px; }
+.card-body { padding:18px; }
+.card-actions { display:flex; gap:6px; }
+.card-action-btn {
+  background:var(--bg-elevated); border:1px solid var(--border); color:var(--text-secondary);
+  padding:5px 10px; border-radius:6px; cursor:pointer; font-size:11px;
+}
+.card-action-btn:hover { color:var(--text-primary); border-color:var(--cyan); }
+.card-action-btn.primary { background:var(--ferrari-red); border-color:var(--ferrari-red); color:white; }
+
+/* ─── TABLE ─── */
+.data-table { width:100%; border-collapse:collapse; font-size:12px; }
+.data-table th {
+  text-align:left; padding:9px 12px; font-size:10px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--text-muted); border-bottom:1px solid var(--border); font-weight:600;
+}
+.data-table td { padding:9px 12px; border-bottom:1px solid rgba(30,41,59,0.5); color:var(--text-secondary); }
+.data-table tr:hover td { background:rgba(6,182,212,0.04); color:var(--text-primary); }
+.status-badge { display:inline-block; padding:3px 9px; border-radius:20px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; }
+.status-badge.active { background:rgba(16,185,129,0.15); color:var(--green); }
+.status-badge.pending { background:rgba(245,158,11,0.15); color:var(--amber); }
+.status-badge.new { background:rgba(6,182,212,0.15); color:var(--cyan); }
+.status-badge.hot { background:rgba(220,20,60,0.15); color:var(--ferrari-red); }
+.status-badge.closed { background:rgba(100,116,139,0.15); color:var(--text-muted); }
+.status-badge.won { background:rgba(16,185,129,0.2); color:var(--green); }
+
+/* ─── INDUSTRY BADGE ─── */
+.ind-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:9px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; }
+.ind-badge.qsr { background:rgba(249,115,22,0.2); color:var(--orange); }
+.ind-badge.retail { background:rgba(139,92,246,0.2); color:var(--purple); }
+.ind-badge.fitness { background:rgba(16,185,129,0.2); color:var(--green); }
+.ind-badge.auto { background:rgba(59,130,246,0.2); color:var(--blue); }
+.ind-badge.service { background:rgba(6,182,212,0.2); color:var(--cyan); }
+.ind-badge.medical { background:rgba(236,72,153,0.2); color:var(--pink); }
+.ind-badge.hotel { background:rgba(245,158,11,0.2); color:var(--amber); }
+.ind-badge.gas { background:rgba(100,116,139,0.2); color:var(--text-secondary); }
+.ind-badge.food { background:rgba(220,20,60,0.2); color:var(--ferrari-red); }
+.ind-badge.residential { background:rgba(20,184,166,0.2); color:var(--teal); }
+.ind-badge.commercial { background:rgba(59,130,246,0.2); color:var(--blue); }
+
+/* ─── CATEGORY TILES ─── */
+.category-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(170px,1fr)); gap:12px; }
+.category-tile {
+  background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+  padding:16px; cursor:pointer; text-align:center; position:relative; overflow:hidden; transition:var(--transition);
+}
+.category-tile:hover { transform:translateY(-3px); border-color:var(--border-active); box-shadow:0 8px 25px rgba(0,0,0,0.3); }
+.category-tile::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; }
+.category-tile[data-cat="qsr"]::after { background:var(--orange); }
+.category-tile[data-cat="retail"]::after { background:var(--purple); }
+.category-tile[data-cat="fitness"]::after { background:var(--green); }
+.category-tile[data-cat="auto"]::after { background:var(--blue); }
+.category-tile[data-cat="service"]::after { background:var(--cyan); }
+.category-tile[data-cat="medical"]::after { background:var(--pink); }
+.category-tile[data-cat="hotel"]::after { background:var(--amber); }
+.category-tile[data-cat="gas"]::after { background:var(--text-muted); }
+.category-tile[data-cat="residential"]::after { background:var(--teal); }
+.category-tile[data-cat="permits"]::after { background:var(--ferrari-red); }
+.tile-icon { font-size:26px; margin-bottom:8px; }
+.tile-label { font-family:'Rajdhani',sans-serif; font-size:12px; font-weight:600; letter-spacing:0.5px; color:var(--text-primary); margin-bottom:3px; }
+.tile-count { font-family:'Rajdhani',sans-serif; font-size:24px; font-weight:700; }
+.tile-sub { font-size:9px; color:var(--text-muted); margin-top:2px; }
+
+/* ─── GANTT ─── */
+.gantt-container { overflow-x:auto; }
+.gantt-header { display:grid; grid-template-columns:220px repeat(12,1fr); border-bottom:1px solid var(--border); margin-bottom:4px; }
+.gantt-header span { font-size:10px; color:var(--text-muted); text-align:center; padding:8px 4px; }
+.gantt-header span:first-child { text-align:left; }
+.gantt-row { display:grid; grid-template-columns:220px repeat(12,1fr); align-items:center; min-height:34px; border-bottom:1px solid rgba(30,41,59,0.3); }
+.gantt-row:hover { background:rgba(6,182,212,0.04); }
+.gantt-label { font-size:11px; color:var(--text-secondary); padding:0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.gantt-track { grid-column:span 12; position:relative; height:22px; display:flex; align-items:center; }
+.gantt-bar {
+  position:absolute; height:18px; border-radius:4px; opacity:0.85;
+  display:flex; align-items:center; padding:0 6px; font-size:8px; color:white; font-weight:600; overflow:hidden; white-space:nowrap;
+}
+.gantt-bar:hover { opacity:1; }
+
+/* ─── TRIGGER LOG ─── */
+.trigger-list { max-height:420px; overflow-y:auto; }
+.trigger-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid rgba(30,41,59,0.4); }
+.trigger-dot { width:10px; height:10px; border-radius:50%; margin-top:4px; flex-shrink:0; }
+.trigger-dot.critical { background:var(--ferrari-red); box-shadow:0 0 8px var(--red-glow); }
+.trigger-dot.warning { background:var(--amber); box-shadow:0 0 8px var(--amber-glow); }
+.trigger-dot.info { background:var(--cyan); box-shadow:0 0 8px var(--cyan-glow); }
+.trigger-dot.success { background:var(--green); box-shadow:0 0 8px var(--green-glow); }
+.trigger-content h4 { font-size:12px; font-weight:600; margin-bottom:2px; }
+.trigger-content p { font-size:11px; color:var(--text-muted); line-height:1.4; }
+.trigger-time { font-family:'Source Code Pro',monospace; font-size:10px; color:var(--text-muted); margin-left:auto; white-space:nowrap; }
+
+/* ─── PIPELINE CARD ─── */
+.pipeline-stage { display:flex; gap:4px; align-items:center; margin-bottom:16px; }
+.pipeline-step { flex:1; text-align:center; padding:10px 4px; border-radius:8px; font-size:10px; font-weight:600; letter-spacing:0.5px; }
+.pipeline-step.s1 { background:rgba(6,182,212,0.15); color:var(--cyan); }
+.pipeline-step.s2 { background:rgba(139,92,246,0.15); color:var(--purple); }
+.pipeline-step.s3 { background:rgba(245,158,11,0.15); color:var(--amber); }
+.pipeline-step.s4 { background:rgba(16,185,129,0.15); color:var(--green); }
+.pipeline-step.s5 { background:rgba(220,20,60,0.15); color:var(--ferrari-red); }
+.pipeline-arrow { color:var(--text-muted); font-size:16px; }
+
+/* ─── MODAL ─── */
+.modal-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); z-index:300; justify-content:center; align-items:center; }
+.modal-overlay.show { display:flex; }
+.modal { background:var(--bg-secondary); border:1px solid var(--border); border-radius:16px; width:560px; max-height:85vh; overflow-y:auto; }
+.modal-header { padding:16px 22px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.modal-header h3 { font-family:'Rajdhani',sans-serif; font-size:17px; font-weight:600; }
+.modal-close { background:none; border:none; color:var(--text-muted); font-size:22px; cursor:pointer; }
+.modal-body { padding:22px; }
+.form-group { margin-bottom:14px; }
+.form-group label { display:block; font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:5px; font-weight:600; }
+.form-input, .form-select { width:100%; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:10px 14px; color:var(--text-primary); font-size:13px; outline:none; }
+.form-input:focus, .form-select:focus { border-color:var(--cyan); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.form-row-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.btn-submit { background:var(--ferrari-red); border:none; color:white; padding:12px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; width:100%; margin-top:8px; }
+.btn-submit:hover { background:#b51232; }
+
+/* ─── DETAIL PANEL ─── */
+.detail-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:200; }
+.detail-overlay.show { display:block; }
+.detail-panel { position:fixed; top:0; right:0; bottom:0; width:620px; background:var(--bg-secondary); border-left:1px solid var(--border); z-index:201; transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.4,0,0.2,1); display:flex; flex-direction:column; }
+.detail-overlay.show .detail-panel { transform:translateX(0); }
+.detail-header { padding:18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.detail-header h2 { font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:700; }
+.detail-close { background:none; border:none; color:var(--text-muted); font-size:24px; cursor:pointer; }
+.detail-body { flex:1; overflow-y:auto; padding:18px; }
+
+.page-section { display:none; }
+.page-section.active { display:block; }
+
+/* ─── FILTER BAR ─── */
+.filter-bar { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+.filter-chip {
+  background:var(--bg-elevated); border:1px solid var(--border); color:var(--text-secondary);
+  padding:6px 14px; border-radius:20px; font-size:11px; cursor:pointer; transition:var(--transition);
+}
+.filter-chip:hover, .filter-chip.active { border-color:var(--cyan); color:var(--cyan); background:rgba(6,182,212,0.1); }
+
+.state-map-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.state-card { background:var(--bg-elevated); border:1px solid var(--border); border-radius:8px; padding:14px; cursor:pointer; transition:var(--transition); }
+.state-card:hover { border-color:var(--cyan); transform:scale(1.02); }
+.state-card .state-name { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; margin-bottom:6px; }
+.state-card .state-stats { display:grid; grid-template-columns:1fr 1fr; gap:4px; font-size:10px; color:var(--text-muted); }
+.state-card .state-stats span { color:var(--text-primary); font-weight:600; }
+
+@media (max-width:1024px) {
+  .sidebar { width:200px; } .main { margin-left:200px; }
+  .section-grid { grid-template-columns:1fr; }
+}
+@media (max-width:768px) {
+  .sidebar { display:none; } .main { margin-left:0; }
+  .detail-panel { width:100%; }
+}
+
+/* ─── MOBILE HAMBURGER ─── */
+.hamburger {
+  display:none; position:fixed; top:12px; left:12px; z-index:150;
+  background:var(--ferrari-red); border:none; color:white; width:40px; height:40px;
+  border-radius:8px; font-size:20px; cursor:pointer; align-items:center; justify-content:center;
+  box-shadow:0 2px 8px rgba(220,20,60,0.4);
+}
+.sidebar-backdrop {
+  display:none; position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(0,0,0,0.6); z-index:90;
+}
+@media (max-width:768px) {
+  .hamburger { display:flex; }
+  .sidebar { transform:translateX(-100%); transition:transform 0.3s ease; z-index:110; width:270px; }
+  .sidebar.open { transform:translateX(0); }
+  .sidebar-backdrop.show { display:block; }
+  .main { margin-left:0 !important; }
+  .topbar { padding:12px 16px; padding-left:56px; }
+  .topbar-title { font-size:16px; }
+  .search-box { width:160px; font-size:12px; }
+  .content { padding:14px; }
+  .kpi-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px; }
+  .kpi-value { font-size:24px; }
+  .section-grid { grid-template-columns:1fr !important; }
+  .category-grid { grid-template-columns:repeat(2,1fr) !important; gap:10px; }
+  .pipeline-stage { flex-wrap:wrap; }
+  .pipeline-step { min-width:45%; font-size:9px; }
+  .pipeline-arrow { display:none; }
+  .data-table { font-size:11px; }
+  .data-table th, .data-table td { padding:7px 8px; }
+  .filter-bar { gap:6px; }
+  .filter-chip { padding:5px 10px; font-size:10px; }
+  .detail-panel { width:100% !important; }
+  .modal { width:95% !important; max-width:520px; }
+  .state-map-grid { grid-template-columns:1fr 1fr !important; }
+  .gantt-container { min-width:800px; }
+}
+@media (max-width:480px) {
+  .kpi-grid { grid-template-columns:1fr 1fr !important; }
+  .category-grid { grid-template-columns:1fr 1fr !important; }
+  .tile-count { font-size:20px; }
+  .tile-label { font-size:10px; }
+}
+/* ─── PRINT ─── */
+@media print {
+  .sidebar,.topbar,.hamburger,.sidebar-backdrop,.modal-overlay,.detail-overlay { display:none !important; }
+  .main { margin-left:0 !important; }
+  body { background:white; color:black; }
+  .card { border:1px solid #ccc; break-inside:avoid; }
+}
+/* ─── LOADING ─── */
+.app-loader {
+  position:fixed; top:0; left:0; right:0; bottom:0; background:var(--bg-primary);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999;
+  transition:opacity 0.4s ease;
+}
+.app-loader.hidden { opacity:0; pointer-events:none; }
+.loader-brand { font-family:'Rajdhani',sans-serif; font-size:28px; font-weight:700; color:var(--ferrari-red); letter-spacing:3px; margin-bottom:16px; }
+.loader-bar { width:200px; height:3px; background:var(--bg-card); border-radius:2px; overflow:hidden; }
+.loader-bar-fill { width:0%; height:100%; background:var(--ferrari-red); border-radius:2px; animation:loadFill 1.2s ease forwards; }
+@keyframes loadFill { to { width:100%; } }
+</style>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div class="app-loader" id="appLoader">
+  <div class="loader-brand">MLS COMMAND CENTER</div>
+  <div style="font-size:11px;color:#64748b;letter-spacing:2px;margin-bottom:20px;">UNIVERSAL FRANCHISE INTELLIGENCE</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- Mobile hamburger -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleSidebar()"></div>
+
+
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <h1>MLS LEAD<br>COMMAND CENTER</h1>
+    <div class="sub">Universal Franchise Intelligence</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">Intelligence Hub</div>
+    <div class="nav-item active" onclick="showPage('dashboard')"><span class="icon">📊</span> Dashboard</div>
+    <div class="nav-item" onclick="showPage('franchises')"><span class="icon">🏢</span> All Franchises <span class="badge">64</span></div>
+    <div class="nav-item" onclick="showPage('permits')"><span class="icon">🏗️</span> Permits & Land <span class="badge">52</span></div>
+    <div class="nav-item" onclick="showPage('pipeline')"><span class="icon">🔌</span> Wiring Pipeline</div>
+    <div class="nav-item" onclick="showPage('exhibits')"><span class="icon">🎪</span> Exhibits & Shows</div>
+
+    <div class="nav-section">By Industry</div>
+    <div class="nav-item" onclick="filterIndustry('qsr')"><span class="icon">🍔</span> QSR / Food</div>
+    <div class="nav-item" onclick="filterIndustry('retail')"><span class="icon">🏬</span> Retail / Stores</div>
+    <div class="nav-item" onclick="filterIndustry('fitness')"><span class="icon">💪</span> Fitness / Gym</div>
+    <div class="nav-item" onclick="filterIndustry('auto')"><span class="icon">🚗</span> Auto / Gas</div>
+    <div class="nav-item" onclick="filterIndustry('service')"><span class="icon">🧹</span> Service / Laundry</div>
+    <div class="nav-item" onclick="filterIndustry('medical')"><span class="icon">🏥</span> Medical / Dental</div>
+    <div class="nav-item" onclick="filterIndustry('hotel')"><span class="icon">🏨</span> Hotel / Lodging</div>
+    <div class="nav-item" onclick="filterIndustry('residential')"><span class="icon">🏘️</span> Residential Builds</div>
+
+    <div class="nav-section">Operations</div>
+    <div class="nav-item" onclick="showPage('gantt')"><span class="icon">📈</span> Gantt Timelines</div>
+    <div class="nav-item" onclick="showPage('triggers')"><span class="icon">⚡</span> Triggers <span class="badge" style="background:var(--amber)">11</span></div>
+    <div class="nav-item" onclick="showPage('states')"><span class="icon">🗺️</span> State Coverage</div>
+    <div class="nav-item" onclick="showPage('events')"><span class="icon">📅</span> Events Calendar</div>
+
+    <div class="nav-section">Admin</div>
+    <div class="nav-item" onclick="openModal('add-record')"><span class="icon">➕</span> Add Record</div>
+    <div class="nav-item" onclick="exportData()"><span class="icon">📥</span> Export Data</div>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="topbar">
+    <span class="topbar-title" id="page-title">Dashboard</span>
+    <div class="topbar-right">
+      <input class="search-box" type="text" placeholder="Search franchises, permits, locations..." id="globalSearch" onkeyup="handleSearch(this.value)">
+      <button class="topbar-btn" onclick="openModal('add-record')">➕ Add</button>
+      <button class="topbar-btn" onclick="exportData()">📥</button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══════ DASHBOARD ═══════ -->
+    <div class="page-section active" id="page-dashboard">
+
+      <!-- Pipeline Visual -->
+      <div class="card full-width" style="margin-bottom:20px;">
+        <div class="card-header"><h3>🔌 FRANCHISE → SECURITY INSTALL PIPELINE</h3></div>
+        <div class="card-body">
+          <div class="pipeline-stage">
+            <div class="pipeline-step s1">📡 FRANCHISE<br>DETECTED<br><strong style="font-size:16px">64</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s2">🏗️ LAND BOUGHT /<br>PERMIT FILED<br><strong style="font-size:16px">52</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s3">⚡ GROUND BREAK /<br>WIRING STAGE<br><strong style="font-size:16px">28</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s4">🔧 BID SENT /<br>IN NEGOTIATION<br><strong style="font-size:16px">18</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s5">✅ WON /<br>INSTALLING<br><strong style="font-size:16px">9</strong></div>
+          </div>
+          <div style="text-align:center;font-size:11px;color:var(--text-muted);">Every franchise that builds = prewire + security + cameras + access control + fire alarm opportunity</div>
+        </div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card red" onclick="showPage('franchises')">
+          <div class="kpi-label">Franchises Tracked</div>
+          <div class="kpi-value">64</div>
+          <div class="kpi-change up">↑ 8 this week</div>
+        </div>
+        <div class="kpi-card cyan" onclick="showPage('permits')">
+          <div class="kpi-label">Active Permits</div>
+          <div class="kpi-value">52</div>
+          <div class="kpi-change up">↑ 12 new</div>
+        </div>
+        <div class="kpi-card green" onclick="showPage('pipeline')">
+          <div class="kpi-label">Wiring Bids Sent</div>
+          <div class="kpi-value">18</div>
+          <div class="kpi-change up">↑ 5 this month</div>
+        </div>
+        <div class="kpi-card amber" onclick="showPage('pipeline')">
+          <div class="kpi-label">Jobs Won</div>
+          <div class="kpi-value">9</div>
+          <div class="kpi-change up">$487K pipeline</div>
+        </div>
+        <div class="kpi-card purple" onclick="showPage('exhibits')">
+          <div class="kpi-label">Upcoming Shows</div>
+          <div class="kpi-value">14</div>
+          <div class="kpi-change up">↑ 3 new</div>
+        </div>
+      </div>
+
+      <!-- Executive Categories by Industry -->
+      <div class="card full-width" style="margin-bottom:20px;">
+        <div class="card-header"><h3>⚡ FRANCHISE INTELLIGENCE BY INDUSTRY — CLICK TO DRILL IN</h3></div>
+        <div class="card-body">
+          <div class="category-grid">
+            <div class="category-tile" data-cat="qsr" onclick="filterIndustry('qsr')">
+              <div class="tile-icon">🍔</div>
+              <div class="tile-label">QSR / FAST FOOD</div>
+              <div class="tile-count" style="color:var(--orange)">18</div>
+              <div class="tile-sub">Burger King, McDonald's, Chick-fil-A...</div>
+            </div>
+            <div class="category-tile" data-cat="retail" onclick="filterIndustry('retail')">
+              <div class="tile-icon">🏬</div>
+              <div class="tile-label">RETAIL / STORES</div>
+              <div class="tile-count" style="color:var(--purple)">12</div>
+              <div class="tile-sub">Dollar General, 7-Eleven, Walgreens...</div>
+            </div>
+            <div class="category-tile" data-cat="fitness" onclick="filterIndustry('fitness')">
+              <div class="tile-icon">💪</div>
+              <div class="tile-label">FITNESS / GYM</div>
+              <div class="tile-count" style="color:var(--green)">6</div>
+              <div class="tile-sub">Planet Fitness, Orangetheory, F45...</div>
+            </div>
+            <div class="category-tile" data-cat="auto" onclick="filterIndustry('auto')">
+              <div class="tile-icon">🚗</div>
+              <div class="tile-label">AUTO / GAS</div>
+              <div class="tile-count" style="color:var(--blue)">8</div>
+              <div class="tile-sub">Jiffy Lube, Valvoline, Maverick...</div>
+            </div>
+            <div class="category-tile" data-cat="service" onclick="filterIndustry('service')">
+              <div class="tile-icon">🧹</div>
+              <div class="tile-label">SERVICE / LAUNDRY</div>
+              <div class="tile-count" style="color:var(--cyan)">7</div>
+              <div class="tile-sub">Tide Cleaners, Speed Queen, ServPro...</div>
+            </div>
+            <div class="category-tile" data-cat="medical" onclick="filterIndustry('medical')">
+              <div class="tile-icon">🏥</div>
+              <div class="tile-label">MEDICAL / DENTAL</div>
+              <div class="tile-count" style="color:var(--pink)">5</div>
+              <div class="tile-sub">Aspen Dental, CareSpot, NextCare...</div>
+            </div>
+            <div class="category-tile" data-cat="hotel" onclick="filterIndustry('hotel')">
+              <div class="tile-icon">🏨</div>
+              <div class="tile-label">HOTEL / LODGING</div>
+              <div class="tile-count" style="color:var(--amber)">4</div>
+              <div class="tile-sub">Hampton Inn, Holiday Inn Express...</div>
+            </div>
+            <div class="category-tile" data-cat="residential" onclick="filterIndustry('residential')">
+              <div class="tile-icon">🏘️</div>
+              <div class="tile-label">RESIDENTIAL BUILDS</div>
+              <div class="tile-count" style="color:var(--teal)">4</div>
+              <div class="tile-sub">DR Horton, Lennar, Meritage...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <div class="card-header"><h3>⚡ Latest Triggers</h3><div class="card-actions"><button class="card-action-btn" onclick="showPage('triggers')">View All</button></div></div>
+          <div class="card-body"><div class="trigger-list" id="dash-triggers"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>🏗️ Newest Permits Filed</h3><div class="card-actions"><button class="card-action-btn" onclick="showPage('permits')">View All</button></div></div>
+          <div class="card-body"><table class="data-table"><thead><tr><th>Franchise</th><th>Industry</th><th>Location</th><th>Stage</th></tr></thead><tbody id="dash-permits"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ ALL FRANCHISES PAGE ═══════ -->
+    <div class="page-section" id="page-franchises">
+      <div class="filter-bar" id="industry-filters">
+        <div class="filter-chip active" onclick="setFilter('all')">All Industries</div>
+        <div class="filter-chip" onclick="setFilter('qsr')">🍔 QSR</div>
+        <div class="filter-chip" onclick="setFilter('retail')">🏬 Retail</div>
+        <div class="filter-chip" onclick="setFilter('fitness')">💪 Fitness</div>
+        <div class="filter-chip" onclick="setFilter('auto')">🚗 Auto</div>
+        <div class="filter-chip" onclick="setFilter('service')">🧹 Service</div>
+        <div class="filter-chip" onclick="setFilter('medical')">🏥 Medical</div>
+        <div class="filter-chip" onclick="setFilter('hotel')">🏨 Hotel</div>
+        <div class="filter-chip" onclick="setFilter('residential')">🏘️ Residential</div>
+      </div>
+      <div class="card full-width">
+        <div class="card-header"><h3>🏢 Universal Franchise Tracker</h3><div class="card-actions"><button class="card-action-btn primary" onclick="openModal('add-record')">+ Add Franchise</button><button class="card-action-btn">Export</button></div></div>
+        <div class="card-body"><table class="data-table"><thead><tr><th>Franchise</th><th>Industry</th><th>Parent Co.</th><th>Active Locations</th><th>New Permits</th><th>States</th><th>Wiring Opportunity</th><th>Stage</th></tr></thead><tbody id="franchises-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══════ PERMITS & LAND PAGE ═══════ -->
+    <div class="page-section" id="page-permits">
+      <div class="kpi-grid" style="grid-template-columns:repeat(5,1fr)">
+        <div class="kpi-card cyan"><div class="kpi-label">Total Permits</div><div class="kpi-value">52</div></div>
+        <div class="kpi-card purple"><div class="kpi-label">Land Purchased</div><div class="kpi-value">38</div></div>
+        <div class="kpi-card amber"><div class="kpi-label">Ground Broken</div><div class="kpi-value">28</div></div>
+        <div class="kpi-card green"><div class="kpi-label">Wiring Stage</div><div class="kpi-value">18</div></div>
+        <div class="kpi-card red"><div class="kpi-label">Bid Submitted</div><div class="kpi-value">18</div></div>
+      </div>
+      <div class="card full-width">
+        <div class="card-header"><h3>🏗️ Permit & Land Acquisition Tracker</h3><div class="card-actions"><button class="card-action-btn primary" onclick="openModal('add-record')">+ Add Permit</button></div></div>
+        <div class="card-body"><table class="data-table"><thead><tr><th>Permit #</th><th>Franchise</th><th>Industry</th><th>Address</th><th>City</th><th>State</th><th>Sq Ft</th><th>Filed</th><th>Stage</th><th>Our Status</th></tr></thead><tbody id="permits-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══════ WIRING PIPELINE PAGE ═══════ -->
+    <div class="page-section" id="page-pipeline">
+      <div class="card full-width" style="margin-bottom:20px;">
+        <div class="card-header"><h3>🔌 WIRING & SECURITY PIPELINE — ALL INDUSTRIES</h3></div>
+        <div class="card-body">
+          <div class="pipeline-stage">
+            <div class="pipeline-step s1">📡 DETECTED<br><strong>64</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s2">📋 PERMIT FILED<br><strong>52</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s3">⚡ WIRING STAGE<br><strong>28</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s4">📨 BID SENT<br><strong>18</strong></div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step s5">✅ WON<br><strong>9</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="card full-width">
+        <div class="card-header"><h3>Active Bid Tracker</h3></div>
+        <div class="card-body"><table class="data-table"><thead><tr><th>Franchise</th><th>Industry</th><th>Location</th><th>Scope</th><th>Est. Value</th><th>Bid Status</th><th>Decision Date</th><th>Notes</th></tr></thead><tbody id="pipeline-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══════ EXHIBITS PAGE ═══════ -->
+    <div class="page-section" id="page-exhibits">
+      <div class="card full-width">
+        <div class="card-header"><h3>🎪 Trade Shows, Expos & Franchise Conferences</h3><div class="card-actions"><button class="card-action-btn primary" onclick="openModal('add-record')">+ Add Show</button></div></div>
+        <div class="card-body"><table class="data-table"><thead><tr><th>Event</th><th>Type</th><th>Location</th><th>Date</th><th>Our Booth</th><th>Industries Present</th><th>Attendance</th><th>Status</th></tr></thead><tbody id="exhibits-body"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ═══════ GANTT PAGE ═══════ -->
+    <div class="page-section" id="page-gantt">
+      <div class="card full-width">
+        <div class="card-header"><h3>📈 Franchise Build & Wiring Gantt Timelines</h3></div>
+        <div class="card-body"><div class="gantt-container" id="gantt-chart"></div></div>
+      </div>
+    </div>
+
+    <!-- ═══════ TRIGGERS PAGE ═══════ -->
+    <div class="page-section" id="page-triggers">
+      <div class="card full-width">
+        <div class="card-header"><h3>⚡ Trigger & Alert Log</h3><div class="card-actions">
+          <button class="card-action-btn filter-chip active" onclick="filterTriggers('all')">All</button>
+          <button class="card-action-btn filter-chip" onclick="filterTriggers('critical')">Critical</button>
+          <button class="card-action-btn filter-chip" onclick="filterTriggers('permits')">Permits</button>
+          <button class="card-action-btn filter-chip" onclick="filterTriggers('franchise')">Franchise</button>
+        </div></div>
+        <div class="card-body"><div class="trigger-list" id="trigger-log"></div></div>
+      </div>
+    </div>
+
+    <!-- ═══════ STATES PAGE ═══════ -->
+    <div class="page-section" id="page-states">
+      <div class="card full-width">
+        <div class="card-header"><h3>🗺️ State Coverage — All Franchise Industries</h3></div>
+        <div class="card-body"><div class="state-map-grid" id="state-grid"></div></div>
+      </div>
+    </div>
+
+    <!-- ═══════ EVENTS PAGE ═══════ -->
+    <div class="page-section" id="page-events">
+      <div class="card full-width">
+        <div class="card-header"><h3>📅 Events, Consumer Shows & Franchise Expos</h3></div>
+        <div class="card-body"><table class="data-table"><thead><tr><th>Event</th><th>Type</th><th>City</th><th>State</th><th>Date</th><th>Industries</th><th>Attendance</th><th>Lead Goal</th></tr></thead><tbody id="events-body"></tbody></table></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ DETAIL PANEL ═══════ -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <div class="detail-header"><h2 id="detail-title">Detail</h2><button class="detail-close" onclick="closeDetail()">&times;</button></div>
+    <div class="detail-body" id="detail-body"></div>
+  </div>
+</div>
+
+<!-- ═══════ ADD MODAL ═══════ -->
+<div class="modal-overlay" id="modal-add-record" onclick="closeModal('add-record')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header"><h3>➕ Add New Record</h3><button class="modal-close" onclick="closeModal('add-record')">&times;</button></div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Record Type</label>
+        <select class="form-select" id="record-type" onchange="showRecordForm(this.value)">
+          <option value="">Select...</option>
+          <option value="franchise">Franchise / Company</option>
+          <option value="permit">Permit / Land Purchase</option>
+          <option value="exhibit">Exhibit / Trade Show</option>
+          <option value="event">Event / Consumer Show</option>
+        </select>
+      </div>
+      <div id="dynamic-form"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA STORE
+// ═══════════════════════════════════════════════════
+const DB='mls_cc_v2'; let store={franchises:[],permits:[],pipeline:[],exhibits:[],events:[],triggers:[]};
+let currentFilter='all';
+
+function loadStore(){
+  try{ const s=localStorage.getItem(DB); if(s){store={...store,...JSON.parse(s)};} }catch(e){}
+  if(!store.franchises.length) seedData();
+}
+function saveStore(){ try{localStorage.setItem(DB,JSON.stringify(store));}catch(e){} }
+
+function seedData(){
+  store.franchises=[
+    {id:'FR01',name:'Burger King',industry:'qsr',parent:'Restaurant Brands Intl',locations:42,newPermits:5,states:'AZ, NV, UT',opportunity:'Prewire + Security + Fire',stage:'active'},
+    {id:'FR02',name:"McDonald's",industry:'qsr',parent:"McDonald's Corp",locations:68,newPermits:3,states:'AZ, CA, NV, UT',opportunity:'Remodel cameras + new build prewire',stage:'active'},
+    {id:'FR03',name:'Chick-fil-A',industry:'qsr',parent:'Chick-fil-A Inc.',locations:28,newPermits:4,states:'AZ, NV, UT',opportunity:'Full buildout — access, cameras, fire',stage:'hot'},
+    {id:'FR04',name:'Taco Bell',industry:'qsr',parent:'Yum! Brands',locations:55,newPermits:2,states:'AZ, CA, NV',opportunity:'Drive-thru cameras + interior',stage:'active'},
+    {id:'FR05',name:"Wendy's",industry:'qsr',parent:"Wendy's Co.",locations:31,newPermits:2,states:'AZ, NV',opportunity:'New concept builds',stage:'pending'},
+    {id:'FR06',name:'Dutch Bros',industry:'qsr',parent:'Dutch Bros Inc.',locations:22,newPermits:6,states:'AZ, NV, UT, MT, WY',opportunity:'Drive-thru only — cameras + POS security',stage:'hot'},
+    {id:'FR07',name:'Dollar General',industry:'retail',parent:'Dollar General Corp',locations:95,newPermits:8,states:'AZ, NV, UT, MT, WY',opportunity:'Full security — high theft locations',stage:'hot'},
+    {id:'FR08',name:'Dollar Tree',industry:'retail',parent:'Dollar Tree Inc.',locations:72,newPermits:4,states:'AZ, CA, NV, UT',opportunity:'Camera systems + EAS',stage:'active'},
+    {id:'FR09',name:'7-Eleven',industry:'retail',parent:'7-Eleven Inc.',locations:48,newPermits:3,states:'AZ, CA, NV',opportunity:'24hr security — cameras + access',stage:'active'},
+    {id:'FR10',name:'Walgreens',industry:'retail',parent:'Walgreens Boots Alliance',locations:40,newPermits:2,states:'AZ, CA, NV, UT',opportunity:'Pharmacy vault + cameras',stage:'pending'},
+    {id:'FR11',name:'Planet Fitness',industry:'fitness',parent:'Planet Fitness Inc.',locations:18,newPermits:3,states:'AZ, NV, UT',opportunity:'24hr access control + cameras + fire',stage:'hot'},
+    {id:'FR12',name:'Orangetheory',industry:'fitness',parent:'Orangetheory Fitness',locations:14,newPermits:2,states:'AZ, NV',opportunity:'Access control + interior cameras',stage:'active'},
+    {id:'FR13',name:'F45 Training',industry:'fitness',parent:'F45 Training Holdings',locations:8,newPermits:1,states:'AZ',opportunity:'Small footprint — basic security',stage:'pending'},
+    {id:'FR14',name:'Jiffy Lube',industry:'auto',parent:'Shell Oil',locations:22,newPermits:2,states:'AZ, NV, UT',opportunity:'Bay cameras + POS + fire',stage:'active'},
+    {id:'FR15',name:'Valvoline Instant',industry:'auto',parent:'Valvoline Inc.',locations:16,newPermits:3,states:'AZ, NV',opportunity:'Drive-thru bays — full camera coverage',stage:'active'},
+    {id:'FR16',name:'Take 5 Oil Change',industry:'auto',parent:'Take 5',locations:10,newPermits:2,states:'AZ',opportunity:'New concept — ground up builds',stage:'new'},
+    {id:'FR17',name:'Maverick Gas',industry:'auto',parent:'Maverik Inc.',locations:35,newPermits:3,states:'UT, MT, WY',opportunity:'Forecourt cameras + interior + ATM',stage:'active'},
+    {id:'FR18',name:'Tide Cleaners',industry:'service',parent:'Procter & Gamble / Tide',locations:6,newPermits:3,states:'AZ, NV',opportunity:'Locker access + cameras + fire',stage:'hot'},
+    {id:'FR19',name:'Speed Queen Laundry',industry:'service',parent:'Alliance Laundry',locations:12,newPermits:2,states:'AZ, NV, UT',opportunity:'24hr unattended — full security critical',stage:'hot'},
+    {id:'FR20',name:'ServPro',industry:'service',parent:'ServPro Industries',locations:15,newPermits:1,states:'AZ, NV',opportunity:'Warehouse + vehicle fleet cameras',stage:'pending'},
+    {id:'FR21',name:'Aspen Dental',industry:'medical',parent:'TAG - The Aspen Group',locations:8,newPermits:2,states:'AZ, NV',opportunity:'Medical suite — access + cameras + fire + HIPAA',stage:'active'},
+    {id:'FR22',name:'NextCare Urgent Care',industry:'medical',parent:'NextCare Holdings',locations:12,newPermits:2,states:'AZ',opportunity:'Medical — access control + fire alarm required',stage:'active'},
+    {id:'FR23',name:'CareSpot',industry:'medical',parent:'HCA Healthcare',locations:5,newPermits:1,states:'AZ',opportunity:'Medical compliance security',stage:'new'},
+    {id:'FR24',name:'Hampton Inn',industry:'hotel',parent:'Hilton Worldwide',locations:14,newPermits:2,states:'AZ, NV, UT',opportunity:'Full hotel — access, cameras, fire, elevator',stage:'active'},
+    {id:'FR25',name:'Holiday Inn Express',industry:'hotel',parent:'IHG Hotels',locations:11,newPermits:1,states:'AZ, NV',opportunity:'Hotel security package',stage:'pending'},
+    {id:'FR26',name:'La Quinta',industry:'hotel',parent:'Wyndham Hotels',locations:8,newPermits:1,states:'AZ, NV',opportunity:'Economy hotel — basic security + fire',stage:'pending'},
+    {id:'FR27',name:'DR Horton',industry:'residential',parent:'DR Horton Inc.',locations:0,newPermits:6,states:'AZ, NV, UT',opportunity:'300+ unit developments — prewire at scale',stage:'hot'},
+    {id:'FR28',name:'Lennar',industry:'residential',parent:'Lennar Corp',locations:0,newPermits:4,states:'AZ, NV, UT, CA',opportunity:'200+ unit — signed prewire agreements',stage:'won'},
+    {id:'FR29',name:'Meritage Homes',industry:'residential',parent:'Meritage Homes Corp',locations:0,newPermits:3,states:'AZ, CA, NV, UT',opportunity:'120-unit SFR developments',stage:'active'},
+    {id:'FR30',name:"Raising Cane's",industry:'qsr',parent:"Raising Cane's",locations:8,newPermits:4,states:'AZ, NV, UT',opportunity:'Aggressive expansion — all ground-up builds',stage:'hot'},
+  ];
+
+  store.permits=[
+    {id:'PM01',number:'AZ-2026-7821',franchise:'Burger King',industry:'qsr',address:'3401 W Bell Rd',city:'Phoenix',state:'AZ',sqft:'3,200',filed:'2026-01-18',stage:'Ground Broken',ourStatus:'Bid Sent'},
+    {id:'PM02',number:'AZ-2026-7835',franchise:'Chick-fil-A',industry:'qsr',address:'7120 E Camelback Rd',city:'Scottsdale',state:'AZ',sqft:'5,000',filed:'2026-01-22',stage:'Permit Filed',ourStatus:'Preparing Bid'},
+    {id:'PM03',number:'NV-2026-3341',franchise:'Dollar General',industry:'retail',address:'4500 N Rancho Dr',city:'Las Vegas',state:'NV',sqft:'9,100',filed:'2026-01-10',stage:'Ground Broken',ourStatus:'WON'},
+    {id:'PM04',number:'AZ-2026-7842',franchise:'Planet Fitness',industry:'fitness',address:'2200 S Power Rd',city:'Mesa',state:'AZ',sqft:'20,000',filed:'2026-01-25',stage:'Wiring Stage',ourStatus:'Installing'},
+    {id:'PM05',number:'NV-2026-3355',franchise:'Tide Cleaners',industry:'service',address:'8810 W Charleston',city:'Las Vegas',state:'NV',sqft:'2,800',filed:'2026-02-01',stage:'Permit Filed',ourStatus:'Not Yet'},
+    {id:'PM06',number:'UT-2026-5501',franchise:'Dutch Bros',industry:'qsr',address:'1200 S State St',city:'Orem',state:'UT',sqft:'950',filed:'2026-01-28',stage:'Land Purchased',ourStatus:'Preparing Bid'},
+    {id:'PM07',number:'AZ-2026-7860',franchise:'DR Horton (300 SFR)',industry:'residential',address:'W Bell Rd & 163rd Ave',city:'Surprise',state:'AZ',sqft:'300 units',filed:'2026-01-05',stage:'Ground Broken',ourStatus:'WON'},
+    {id:'PM08',number:'NV-2026-3362',franchise:'Lennar (200 SFR)',industry:'residential',address:'Horizon Ridge Pkwy',city:'Henderson',state:'NV',sqft:'200 units',filed:'2026-01-10',stage:'Wiring Stage',ourStatus:'WON'},
+    {id:'PM09',number:'AZ-2026-7871',franchise:"Raising Cane's",industry:'qsr',address:'4900 E Ray Rd',city:'Phoenix',state:'AZ',sqft:'3,600',filed:'2026-02-02',stage:'Permit Filed',ourStatus:'Not Yet'},
+    {id:'PM10',number:'MT-2026-0201',franchise:'Maverick Gas',industry:'auto',address:'1500 Main St',city:'Billings',state:'MT',sqft:'6,500',filed:'2026-01-30',stage:'Land Purchased',ourStatus:'Not Yet'},
+    {id:'PM11',number:'AZ-2026-7880',franchise:'Valvoline Instant',industry:'auto',address:'3200 N Scottsdale Rd',city:'Scottsdale',state:'AZ',sqft:'2,400',filed:'2026-01-15',stage:'Ground Broken',ourStatus:'Bid Sent'},
+    {id:'PM12',number:'AZ-2026-7885',franchise:'Speed Queen Laundry',industry:'service',address:'1800 E University Dr',city:'Tempe',state:'AZ',sqft:'3,500',filed:'2026-02-03',stage:'Permit Filed',ourStatus:'Preparing Bid'},
+    {id:'PM13',number:'NV-2026-3370',franchise:'Hampton Inn',industry:'hotel',address:'6200 S Las Vegas Blvd',city:'Las Vegas',state:'NV',sqft:'82,000',filed:'2026-01-20',stage:'Ground Broken',ourStatus:'In Negotiation'},
+    {id:'PM14',number:'AZ-2026-7890',franchise:'Aspen Dental',industry:'medical',address:'4450 E Baseline Rd',city:'Gilbert',state:'AZ',sqft:'3,800',filed:'2026-01-28',stage:'Permit Filed',ourStatus:'Preparing Bid'},
+    {id:'PM15',number:'WY-2026-0115',franchise:'Dollar General',industry:'retail',address:'2100 Dell Range Blvd',city:'Cheyenne',state:'WY',sqft:'9,100',filed:'2026-02-01',stage:'Land Purchased',ourStatus:'Not Yet'},
+    {id:'PM16',number:'AZ-2026-7895',franchise:"McDonald's (Remodel)",industry:'qsr',address:'6800 W Indian School',city:'Phoenix',state:'AZ',sqft:'4,200',filed:'2026-01-12',stage:'Wiring Stage',ourStatus:'Bid Sent'},
+    {id:'PM17',number:'UT-2026-5510',franchise:'Orangetheory',industry:'fitness',address:'3300 S State St',city:'Salt Lake City',state:'UT',sqft:'3,200',filed:'2026-02-02',stage:'Permit Filed',ourStatus:'Not Yet'},
+    {id:'PM18',number:'NV-2026-3378',franchise:'7-Eleven',industry:'retail',address:'5100 W Tropicana',city:'Las Vegas',state:'NV',sqft:'2,800',filed:'2026-01-18',stage:'Ground Broken',ourStatus:'Bid Sent'},
+  ];
+
+  store.pipeline=[
+    {id:'PL01',franchise:'Dollar General',industry:'retail',location:'Las Vegas, NV',scope:'32-cam system + fire alarm + intrusion',value:'$18,500',status:'WON',decision:'2026-01-28',notes:'Installed 02/05'},
+    {id:'PL02',franchise:'Planet Fitness',industry:'fitness',location:'Mesa, AZ',scope:'64-cam + 24hr access (42 doors) + fire',value:'$67,000',status:'Installing',decision:'2026-01-20',notes:'Phase 1 cameras complete'},
+    {id:'PL03',franchise:'DR Horton (300 SFR)',industry:'residential',location:'Surprise, AZ',scope:'Full prewire 300 homes — alarm + camera + structured',value:'$225,000',status:'WON',decision:'2026-01-15',notes:'Phased over 18 months'},
+    {id:'PL04',franchise:'Lennar (200 SFR)',industry:'residential',location:'Henderson, NV',scope:'Prewire 200 homes + model home full install',value:'$156,000',status:'WON',decision:'2026-02-01',notes:'Kickoff 02/10'},
+    {id:'PL05',franchise:'Burger King',industry:'qsr',location:'Phoenix, AZ',scope:'8-cam + POS integration + fire panel',value:'$12,400',status:'Bid Sent',decision:'2026-02-15',notes:'Competing against local vendor'},
+    {id:'PL06',franchise:'Hampton Inn',industry:'hotel',location:'Las Vegas, NV',scope:'120-cam + access (85 doors) + fire + elevator',value:'$185,000',status:'In Negotiation',decision:'2026-03-01',notes:'GC wants package deal'},
+    {id:'PL07',franchise:'Valvoline Instant',industry:'auto',location:'Scottsdale, AZ',scope:'12-cam + bay monitoring + intrusion',value:'$9,800',status:'Bid Sent',decision:'2026-02-20',notes:'Fast-track build'},
+    {id:'PL08',franchise:'Chick-fil-A',industry:'qsr',location:'Scottsdale, AZ',scope:'16-cam + drive-thru analytics + fire + access',value:'$24,500',status:'Preparing',decision:'TBD',notes:'CFA has corporate specs'},
+    {id:'PL09',franchise:'Speed Queen Laundry',industry:'service',location:'Tempe, AZ',scope:'24hr unattended — 12 cam + access + intrusion + fire',value:'$16,200',status:'Preparing',decision:'TBD',notes:'Owner opening 3 locations'},
+  ];
+
+  store.exhibits=[
+    {id:'EX01',name:'ISC West 2026',type:'Security Trade Show',location:'Las Vegas, NV',date:'2026-03-18',booth:'Confirmed #2247',industries:'All — Security Industry',attendance:30000,status:'active'},
+    {id:'EX02',name:'International Franchise Expo',type:'Franchise Expo',location:'Las Vegas, NV',date:'2026-05-15',booth:'Exploring',industries:'ALL franchise industries',attendance:20000,status:'new'},
+    {id:'EX03',name:'AZ Restaurant Association Expo',type:'Industry Show',location:'Phoenix, AZ',date:'2026-04-10',booth:'Pending',industries:'QSR, Food Service',attendance:5000,status:'pending'},
+    {id:'EX04',name:'Multi-Unit Franchising Conference',type:'Franchise Expo',location:'Las Vegas, NV',date:'2026-04-22',booth:'Not Yet',industries:'Multi-brand operators',attendance:2500,status:'new'},
+    {id:'EX05',name:'ICSC Las Vegas (Retail Real Estate)',type:'Trade Show',location:'Las Vegas, NV',date:'2026-05-19',booth:'Exploring',industries:'Retail, QSR, Service — ALL buildouts',attendance:25000,status:'new'},
+    {id:'EX06',name:'NV Home Builders Expo',type:'Industry Show',location:'Las Vegas, NV',date:'2026-05-12',booth:'Confirmed #118',industries:'Residential',attendance:5000,status:'active'},
+    {id:'EX07',name:'AZ Home & Garden Show',type:'Consumer Show',location:'Phoenix, AZ',date:'2026-04-05',booth:'Pending',industries:'Residential, Home Services',attendance:15000,status:'pending'},
+    {id:'EX08',name:'National Restaurant Show',type:'Trade Show',location:'Chicago, IL',date:'2026-05-17',booth:'Attending Only',industries:'QSR, Full Service',attendance:60000,status:'new'},
+  ];
+
+  store.events=[
+    {id:'EV01',name:'Maricopa County Home Safety Expo',type:'Consumer Show',city:'Phoenix',state:'AZ',date:'2026-03-08',industries:'Residential, Service',attendance:8000,leadGoal:150},
+    {id:'EV02',name:'Henderson Community Safety Fair',type:'Block Party',city:'Henderson',state:'NV',date:'2026-03-15',industries:'Residential, Retail',attendance:2000,leadGoal:75},
+    {id:'EV03',name:'Phoenix Chamber Business Expo',type:'B2B Expo',city:'Phoenix',state:'AZ',date:'2026-04-18',industries:'All commercial',attendance:3000,leadGoal:100},
+    {id:'EV04',name:'Wasatch Home & Living Expo',type:'Consumer Show',city:'Salt Lake City',state:'UT',date:'2026-04-12',industries:'Residential',attendance:10000,leadGoal:200},
+    {id:'EV05',name:'Billings Small Business Fair',type:'B2B Expo',city:'Billings',state:'MT',date:'2026-05-03',industries:'All',attendance:800,leadGoal:30},
+  ];
+
+  store.triggers=[
+    {id:'T01',type:'critical',title:'Chick-fil-A Scottsdale permit filed — $24.5K opportunity',detail:'CFA has corporate security specs. Get approved vendor list ASAP. Ground break est. Q2.',time:'3h ago',cat:'permits'},
+    {id:'T02',type:'critical',title:"Raising Cane's filing 4 new AZ permits",detail:'Aggressive expansion in Phoenix metro. All ground-up builds = full prewire + security.',time:'1d ago',cat:'franchise'},
+    {id:'T03',type:'success',title:'Dollar General Las Vegas — WON ($18.5K)',detail:'32-camera system + fire + intrusion. Install scheduled 02/10.',time:'2d ago',cat:'pipeline'},
+    {id:'T04',type:'warning',title:'Hampton Inn $185K bid — GC wants answer by 03/01',detail:'General contractor pushing for package deal. Largest single commercial bid active.',time:'1d ago',cat:'pipeline'},
+    {id:'T05',type:'info',title:'Dutch Bros expanding into UT — 6 new locations planned',detail:'Drive-thru only builds. Camera + POS security per location. ~$8K each = $48K total.',time:'2d ago',cat:'franchise'},
+    {id:'T06',type:'critical',title:'Speed Queen owner opening 3 unattended laundromats',detail:'24hr unattended = MUST have security. 12 cam + access + intrusion per location. $48.6K total.',time:'4h ago',cat:'franchise'},
+    {id:'T07',type:'warning',title:'International Franchise Expo — May 15, Vegas',detail:'20,000 attendees. Every franchise brand expanding nationwide. Booth decision needed by 03/15.',time:'3d ago',cat:'exhibits'},
+    {id:'T08',type:'success',title:'Lennar Henderson 200-unit prewire signed — $156K',detail:'Agreement signed. Kickoff meeting 02/10. Phased delivery over 14 months.',time:'4d ago',cat:'pipeline'},
+    {id:'T09',type:'info',title:'Maverick Gas pulling permit in Billings, MT',detail:'6,500 sq ft gas/convenience. First franchise permit in MT market. Forecourt + interior cameras.',time:'5d ago',cat:'permits'},
+    {id:'T10',type:'warning',title:'ICSC Las Vegas retail real estate show — 25,000 attendees',detail:'Every retail franchise does site selection here. Booth = direct access to expansion decision makers.',time:'1w ago',cat:'exhibits'},
+    {id:'T11',type:'info',title:'Dollar General filing 8 new permits across 5 states',detail:'AZ(3), NV(2), UT(1), MT(1), WY(1). Volume play — standardized security package per location.',time:'3d ago',cat:'permits'},
+  ];
+
+  saveStore();
+}
+
+// ═══════════════════════════════════════════════════
+// NAV & RENDER
+// ═══════════════════════════════════════════════════
+function showPage(id){
+  document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('page-'+id); if(pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>{ if(n.getAttribute('onclick')?.includes("'"+id+"'")) n.classList.add('active'); });
+  const titles={dashboard:'Dashboard',franchises:'All Franchises',permits:'Permits & Land',pipeline:'Wiring Pipeline',exhibits:'Exhibits & Shows',gantt:'Gantt Timelines',triggers:'Trigger Log',states:'State Coverage',events:'Events Calendar'};
+  document.getElementById('page-title').textContent=titles[id]||'Dashboard';
+  renderPage(id);
+}
+
+function renderPage(id){
+  switch(id){
+    case 'dashboard': renderDashboard(); break;
+    case 'franchises': renderFranchises(); break;
+    case 'permits': renderPermits(); break;
+    case 'pipeline': renderPipeline(); break;
+    case 'exhibits': renderExhibits(); break;
+    case 'gantt': renderGantt(); break;
+    case 'triggers': renderTriggers(); break;
+    case 'states': renderStates(); break;
+    case 'events': renderEvents(); break;
+  }
+}
+
+const indLabel=(ind)=>({qsr:'QSR',retail:'Retail',fitness:'Fitness',auto:'Auto',service:'Service',medical:'Medical',hotel:'Hotel',residential:'Residential'}[ind]||ind);
+
+function renderDashboard(){
+  document.getElementById('dash-triggers').innerHTML=store.triggers.slice(0,6).map(t=>`
+    <div class="trigger-item"><div class="trigger-dot ${t.type}"></div><div class="trigger-content"><h4>${t.title}</h4><p>${t.detail}</p></div><div class="trigger-time">${t.time}</div></div>
+  `).join('');
+  document.getElementById('dash-permits').innerHTML=store.permits.slice(0,6).map(p=>`
+    <tr><td style="font-weight:600;color:var(--text-primary)">${p.franchise}</td><td><span class="ind-badge ${p.industry}">${indLabel(p.industry)}</span></td><td>${p.city}, ${p.state}</td><td><span class="status-badge ${p.ourStatus==='WON'?'won':p.ourStatus.includes('Bid')?'pending':'new'}">${p.ourStatus}</span></td></tr>
+  `).join('');
+}
+
+function renderFranchises(){
+  const data=currentFilter==='all'?store.franchises:store.franchises.filter(f=>f.industry===currentFilter);
+  document.getElementById('franchises-body').innerHTML=data.map(f=>`
+    <tr><td style="font-weight:600;color:var(--text-primary)">${f.name}</td><td><span class="ind-badge ${f.industry}">${indLabel(f.industry)}</span></td><td style="font-size:11px">${f.parent}</td><td style="text-align:center">${f.locations||'—'}</td><td style="text-align:center;font-weight:600;color:var(--cyan)">${f.newPermits}</td><td style="font-size:11px">${f.states}</td><td style="font-size:11px">${f.opportunity}</td><td><span class="status-badge ${f.stage}">${f.stage}</span></td></tr>
+  `).join('');
+}
+
+function renderPermits(){
+  document.getElementById('permits-body').innerHTML=store.permits.map(p=>`
+    <tr style="cursor:pointer" onclick="showPermitDetail('${p.id}')"><td><span style="font-family:'Source Code Pro',monospace;color:var(--cyan);font-size:11px">${p.number}</span></td><td style="font-weight:600;color:var(--text-primary)">${p.franchise}</td><td><span class="ind-badge ${p.industry}">${indLabel(p.industry)}</span></td><td style="font-size:11px">${p.address}</td><td>${p.city}</td><td>${p.state}</td><td style="text-align:center">${p.sqft}</td><td>${p.filed}</td><td><span class="status-badge ${p.stage==='Ground Broken'||p.stage==='Wiring Stage'?'active':p.stage==='Land Purchased'?'pending':'new'}">${p.stage}</span></td><td><span class="status-badge ${p.ourStatus==='WON'?'won':p.ourStatus.includes('Bid')||p.ourStatus.includes('Negotiation')?'pending':p.ourStatus==='Installing'?'active':'new'}">${p.ourStatus}</span></td></tr>
+  `).join('');
+}
+
+function renderPipeline(){
+  document.getElementById('pipeline-body').innerHTML=store.pipeline.map(p=>`
+    <tr><td style="font-weight:600;color:var(--text-primary)">${p.franchise}</td><td><span class="ind-badge ${p.industry}">${indLabel(p.industry)}</span></td><td>${p.location}</td><td style="font-size:11px">${p.scope}</td><td style="font-weight:600;color:var(--green)">${p.value}</td><td><span class="status-badge ${p.status==='WON'||p.status==='Installing'?'won':p.status.includes('Bid')||p.status.includes('Negotiation')?'pending':'new'}">${p.status}</span></td><td>${p.decision}</td><td style="font-size:11px">${p.notes}</td></tr>
+  `).join('');
+}
+
+function renderExhibits(){
+  document.getElementById('exhibits-body').innerHTML=store.exhibits.map(e=>`
+    <tr><td style="font-weight:600;color:var(--text-primary)">${e.name}</td><td>${e.type}</td><td>${e.location}</td><td>${e.date}</td><td style="font-size:11px">${e.booth}</td><td style="font-size:11px">${e.industries}</td><td style="text-align:center">${e.attendance.toLocaleString()}</td><td><span class="status-badge ${e.status}">${e.status}</span></td></tr>
+  `).join('');
+}
+
+function renderEvents(){
+  document.getElementById('events-body').innerHTML=store.events.map(e=>`
+    <tr><td style="font-weight:600;color:var(--text-primary)">${e.name}</td><td>${e.type}</td><td>${e.city}</td><td>${e.state}</td><td>${e.date}</td><td style="font-size:11px">${e.industries}</td><td style="text-align:center">${e.attendance.toLocaleString()}</td><td style="text-align:center;font-weight:600">${e.leadGoal}</td></tr>
+  `).join('');
+}
+
+function renderTriggers(){
+  document.getElementById('trigger-log').innerHTML=store.triggers.map(t=>`
+    <div class="trigger-item"><div class="trigger-dot ${t.type}"></div><div class="trigger-content"><h4>${t.title}</h4><p>${t.detail}</p></div><div class="trigger-time">${t.time}</div></div>
+  `).join('');
+}
+
+function renderGantt(){
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const items=[
+    {label:'Burger King — Phoenix',start:0,end:3,color:'var(--orange)'},
+    {label:'Chick-fil-A — Scottsdale',start:1,end:5,color:'var(--orange)'},
+    {label:"Raising Cane's (4 locs)",start:1,end:6,color:'var(--orange)'},
+    {label:'Dollar General (8 permits)',start:0,end:4,color:'var(--purple)'},
+    {label:'Planet Fitness — Mesa',start:0,end:2,color:'var(--green)'},
+    {label:'DR Horton 300-Unit',start:0,end:8,color:'var(--teal)'},
+    {label:'Lennar 200-Unit Henderson',start:1,end:7,color:'var(--teal)'},
+    {label:'Hampton Inn — Vegas',start:1,end:9,color:'var(--amber)'},
+    {label:'Speed Queen (3 locs)',start:1,end:5,color:'var(--cyan)'},
+    {label:'Tide Cleaners — Vegas',start:1,end:4,color:'var(--cyan)'},
+    {label:'Dutch Bros UT Expansion',start:2,end:7,color:'var(--orange)'},
+    {label:'Maverick Gas — Billings',start:2,end:6,color:'var(--blue)'},
+    {label:'ISC West Prep',start:1,end:3,color:'var(--ferrari-red)'},
+    {label:'Franchise Expo — Vegas',start:3,end:5,color:'var(--ferrari-red)'},
+    {label:'ICSC Retail RE — Vegas',start:4,end:5,color:'var(--ferrari-red)'},
+  ];
+  let html='<div class="gantt-header"><span>PROJECT</span>'; months.forEach(m=>html+=`<span>${m}</span>`); html+='</div>';
+  items.forEach(i=>{
+    const l=(i.start/12*100).toFixed(1), w=((i.end-i.start)/12*100).toFixed(1);
+    html+=`<div class="gantt-row"><div class="gantt-label">${i.label}</div><div class="gantt-track" style="grid-column:2/span 12"><div class="gantt-bar" style="left:${l}%;width:${w}%;background:${i.color}">${i.label}</div></div></div>`;
+  });
+  document.getElementById('gantt-chart').innerHTML=html;
+}
+
+function renderStates(){
+  const states=[
+    {name:'Arizona',abbr:'AZ',franchises:22,permits:18,pipeline:6,shows:4,status:'Primary'},
+    {name:'Nevada',abbr:'NV',franchises:18,permits:12,pipeline:4,shows:5,status:'Primary'},
+    {name:'California',abbr:'CA',franchises:10,permits:4,pipeline:1,shows:1,status:'Growing'},
+    {name:'Utah',abbr:'UT',franchises:12,permits:6,pipeline:2,shows:2,status:'Growing'},
+    {name:'Wyoming',abbr:'WY',franchises:4,permits:2,pipeline:0,shows:0,status:'Pilot'},
+    {name:'Montana',abbr:'MT',franchises:3,permits:2,pipeline:0,shows:1,status:'Pilot'},
+  ];
+  document.getElementById('state-grid').innerHTML=states.map(s=>`
+    <div class="state-card"><div class="state-name">${s.name} <span style="color:var(--text-muted);font-weight:400;font-size:12px">(${s.abbr})</span></div>
+    <div style="margin-bottom:6px"><span class="status-badge ${s.status==='Primary'?'active':s.status==='Growing'?'pending':'new'}">${s.status}</span></div>
+    <div class="state-stats"><div>Franchises: <span>${s.franchises}</span></div><div>Permits: <span>${s.permits}</span></div><div>Pipeline: <span>${s.pipeline}</span></div><div>Shows: <span>${s.shows}</span></div></div></div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// FILTERS & DETAIL
+// ═══════════════════════════════════════════════════
+function filterIndustry(ind){ currentFilter=ind; showPage('franchises'); }
+function setFilter(f){
+  currentFilter=f;
+  document.querySelectorAll('#industry-filters .filter-chip').forEach(c=>c.classList.remove('active'));
+  event.target.classList.add('active');
+  renderFranchises();
+}
+
+function showPermitDetail(id){
+  const p=store.permits.find(x=>x.id===id); if(!p) return;
+  document.getElementById('detail-title').textContent=p.franchise+' — '+p.number;
+  document.getElementById('detail-body').innerHTML=`
+    <div style="margin-bottom:16px"><span class="ind-badge ${p.industry}" style="font-size:12px;padding:4px 12px">${indLabel(p.industry)}</span></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+      <div><div class="kpi-label">Address</div><div style="margin-top:4px">${p.address}</div></div>
+      <div><div class="kpi-label">City, State</div><div style="margin-top:4px">${p.city}, ${p.state}</div></div>
+      <div><div class="kpi-label">Square Footage</div><div style="margin-top:4px;font-weight:700;font-size:18px">${p.sqft}</div></div>
+      <div><div class="kpi-label">Filed Date</div><div style="margin-top:4px">${p.filed}</div></div>
+      <div><div class="kpi-label">Build Stage</div><div style="margin-top:4px"><span class="status-badge active">${p.stage}</span></div></div>
+      <div><div class="kpi-label">Our Status</div><div style="margin-top:4px"><span class="status-badge ${p.ourStatus==='WON'?'won':'pending'}">${p.ourStatus}</span></div></div>
+    </div>
+    <div class="kpi-label" style="margin-bottom:8px">WIRING & SECURITY SCOPE</div>
+    <div style="background:var(--bg-elevated);border-radius:8px;padding:14px;font-size:12px;color:var(--text-secondary);margin-bottom:16px;line-height:1.6">
+      ${p.industry==='qsr'?'Cameras (interior + drive-thru) • POS integration • Fire alarm panel • Intrusion detection • Access control (office/safe)':
+        p.industry==='retail'?'Camera system (32+ typical) • EAS/anti-theft integration • Fire alarm • Intrusion • Back office access control':
+        p.industry==='fitness'?'24hr access control (all doors) • Camera system (64+ cams) • Fire alarm • Emergency stations • Locker area monitoring':
+        p.industry==='auto'?'Bay cameras • Forecourt cameras • POS area security • Fire detection • Intrusion':
+        p.industry==='service'?'24hr camera system • Smart lock access control • Fire alarm • Intrusion • Remote monitoring':
+        p.industry==='medical'?'HIPAA-compliant access control • Camera system • Fire alarm • Panic buttons • Pharmacy/med vault':
+        p.industry==='hotel'?'Guest access (all rooms + common) • Camera system (120+) • Fire alarm • Elevator monitoring • Pool/fitness area':
+        'Full structured prewire • Alarm rough-in • Camera conduit • Structured cabling • Smart home package'}
+    </div>
+    <div class="form-group"><label>Notes</label><textarea class="form-input" style="height:80px">${''}</textarea></div>
+    <div style="display:flex;gap:8px"><button class="card-action-btn primary">Update Status</button><button class="card-action-btn">Set Trigger</button><button class="card-action-btn">Create Bid</button></div>
+  `;
+  document.getElementById('detailOverlay').classList.add('show');
+}
+function closeDetail(){ document.getElementById('detailOverlay').classList.remove('show'); }
+
+// ═══════════════════════════════════════════════════
+// MODAL & FORMS
+// ═══════════════════════════════════════════════════
+function openModal(id){ document.getElementById('modal-'+id)?.classList.add('show'); }
+function closeModal(id){ document.getElementById('modal-'+id)?.classList.remove('show'); }
+
+function showRecordForm(type){
+  const forms={
+    franchise:`
+      <div class="form-group"><label>Franchise Name</label><input class="form-input" id="f-name"></div>
+      <div class="form-row"><div class="form-group"><label>Industry</label><select class="form-select" id="f-ind"><option value="qsr">QSR / Food</option><option value="retail">Retail</option><option value="fitness">Fitness</option><option value="auto">Auto</option><option value="service">Service / Laundry</option><option value="medical">Medical</option><option value="hotel">Hotel</option><option value="residential">Residential</option></select></div>
+      <div class="form-group"><label>Parent Company</label><input class="form-input" id="f-parent"></div></div>
+      <div class="form-row"><div class="form-group"><label>States</label><input class="form-input" id="f-states" placeholder="AZ, NV, UT"></div>
+      <div class="form-group"><label>New Permits</label><input class="form-input" id="f-permits" type="number"></div></div>
+      <div class="form-group"><label>Wiring Opportunity</label><input class="form-input" id="f-opp" placeholder="e.g., Full buildout — cameras + fire + access"></div>
+      <button class="btn-submit" onclick="submitFranchise()">Add Franchise</button>`,
+    permit:`
+      <div class="form-row"><div class="form-group"><label>Permit #</label><input class="form-input" id="p-num"></div>
+      <div class="form-group"><label>State</label><select class="form-select" id="p-state"><option>AZ</option><option>NV</option><option>CA</option><option>UT</option><option>WY</option><option>MT</option></select></div></div>
+      <div class="form-row"><div class="form-group"><label>Franchise</label><input class="form-input" id="p-franchise"></div>
+      <div class="form-group"><label>Industry</label><select class="form-select" id="p-ind"><option value="qsr">QSR</option><option value="retail">Retail</option><option value="fitness">Fitness</option><option value="auto">Auto</option><option value="service">Service</option><option value="medical">Medical</option><option value="hotel">Hotel</option><option value="residential">Residential</option></select></div></div>
+      <div class="form-group"><label>Address</label><input class="form-input" id="p-addr"></div>
+      <div class="form-row-3"><div class="form-group"><label>City</label><input class="form-input" id="p-city"></div>
+      <div class="form-group"><label>Sq Ft</label><input class="form-input" id="p-sqft"></div>
+      <div class="form-group"><label>Stage</label><select class="form-select" id="p-stage"><option>Land Purchased</option><option>Permit Filed</option><option>Ground Broken</option><option>Wiring Stage</option></select></div></div>
+      <button class="btn-submit" onclick="submitPermit()">Add Permit</button>`,
+  };
+  document.getElementById('dynamic-form').innerHTML=forms[type]||'<p style="color:var(--text-muted);padding:20px;text-align:center">Select a record type</p>';
+}
+
+function submitFranchise(){
+  const f={id:'FR'+Date.now(),name:document.getElementById('f-name').value,industry:document.getElementById('f-ind').value,parent:document.getElementById('f-parent').value,locations:0,newPermits:parseInt(document.getElementById('f-permits').value)||0,states:document.getElementById('f-states').value,opportunity:document.getElementById('f-opp').value,stage:'new'};
+  if(!f.name) return alert('Enter franchise name');
+  store.franchises.unshift(f);
+  store.triggers.unshift({id:'T'+Date.now(),type:'info',title:`New franchise added: ${f.name} (${indLabel(f.industry)})`,detail:`${f.states} — ${f.opportunity}`,time:'Just now',cat:'franchise'});
+  saveStore(); closeModal('add-record'); showPage('franchises');
+}
+
+function submitPermit(){
+  const p={id:'PM'+Date.now(),number:document.getElementById('p-num').value,franchise:document.getElementById('p-franchise').value,industry:document.getElementById('p-ind').value,address:document.getElementById('p-addr').value,city:document.getElementById('p-city').value,state:document.getElementById('p-state').value,sqft:document.getElementById('p-sqft').value,filed:new Date().toISOString().split('T')[0],stage:document.getElementById('p-stage').value,ourStatus:'Not Yet'};
+  if(!p.number||!p.franchise) return alert('Fill in permit # and franchise');
+  store.permits.unshift(p);
+  store.triggers.unshift({id:'T'+Date.now(),type:'critical',title:`New permit: ${p.franchise} — ${p.city}, ${p.state}`,detail:`${p.sqft} sq ft. Stage: ${p.stage}. Wiring opportunity detected.`,time:'Just now',cat:'permits'});
+  saveStore(); closeModal('add-record'); showPage('permits');
+}
+
+function filterTriggers(cat){ renderTriggers(); }
+function handleSearch(q){ console.log('Search:',q); }
+function exportData(){
+  const blob=new Blob([JSON.stringify(store,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`MLS_Command_Center_${new Date().toISOString().split('T')[0]}.json`; a.click();
+}
+
+// INIT
+loadStore(); renderDashboard();
+
+// ═══════════════════════════════════════════════════
+// MOBILE SIDEBAR TOGGLE
+// ═══════════════════════════════════════════════════
+function toggleSidebar() {
+  const sb = document.querySelector('.sidebar');
+  const bd = document.getElementById('sidebarBackdrop');
+  sb.classList.toggle('open');
+  bd.classList.toggle('show');
+}
+
+// Close sidebar on nav click (mobile)
+document.querySelectorAll('.nav-item').forEach(n => {
+  n.addEventListener('click', () => {
+    if (window.innerWidth <= 768) {
+      document.querySelector('.sidebar').classList.remove('open');
+      document.getElementById('sidebarBackdrop').classList.remove('show');
+    }
+  });
+});
+
+// ═══════════════════════════════════════════════════
+// GLOBAL SEARCH (enhanced)
+// ═══════════════════════════════════════════════════
+function handleSearch(q) {
+  if (!q || q.length < 2) return;
+  const term = q.toLowerCase();
+  // Search across all stores and show results
+  const results = [];
+  store.franchises.forEach(f => {
+    if ((f.name + f.industry + f.states + f.opportunity).toLowerCase().includes(term))
+      results.push({ type: 'Franchise', name: f.name, detail: f.industry + ' — ' + f.states });
+  });
+  store.permits.forEach(p => {
+    if ((p.franchise + p.number + p.city + p.state + p.industry).toLowerCase().includes(term))
+      results.push({ type: 'Permit', name: p.franchise, detail: p.number + ' — ' + p.city + ', ' + p.state });
+  });
+  store.pipeline.forEach(p => {
+    if ((p.franchise + p.location + p.scope).toLowerCase().includes(term))
+      results.push({ type: 'Pipeline', name: p.franchise, detail: p.value + ' — ' + p.status });
+  });
+  if (results.length > 0) {
+    console.table(results.slice(0, 10));
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// DISMISS LOADER
+// ═══════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('appLoader').classList.add('hidden');
+    setTimeout(() => document.getElementById('appLoader').remove(), 500);
+  }, 1200);
+});
+
+// ═══════════════════════════════════════════════════
+// SERVICE WORKER REGISTRATION (offline support)
+// ═══════════════════════════════════════════════════
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
